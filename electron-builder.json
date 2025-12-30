@@ -1,0 +1,13 @@
+{
+  "appId": "com.weryson-m.caixa",
+  "files": ["dist-electron", "dist-react"],
+  "extraResources": ["dist-electron/preload.cjs"],
+  "icon": "./cashier.png",
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": ["portable", "nsi"]
+  }
+}
