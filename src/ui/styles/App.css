@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  outline: none;
+  border-width: 1px;
+  padding: 0.5rem;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+button:hover {
+  background-color: #d8d8d8;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  background-color: #ff7272;
+}
+
+.cancel-btn:hover {
+  background-color: #c75858;
+}
+
+.cashier {
+  padding: 2rem;
+  background: #abb1b1;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info p {
+  font-size: 1.4rem;
+}
+
+/* ===== HISTORY ===== */
+
+.history img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.history header {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+}
