@@ -1,5 +1,6 @@
-const electron = require("electron");
+import { contextBridge, ipcRenderer } from "electron";
 
-electron.contextBridge.exposeInMainWorld("electron", {
+contextBridge.exposeInMainWorld("electron", {
   getStaticData: () => console.log("static"),
+  getCashFlow: () => ipcRenderer.invoke("get-cash-flow"),
 });
