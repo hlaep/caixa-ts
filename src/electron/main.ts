@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDev } from "./util.js";
 import { getPreloadPath } from "./pathResolver.js";
-import { getCashFlow } from "./database/cashFlowManager.js";
+import { getCashFlow, addEditionCashFlow } from "./database/cashFlowManager.js";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -20,3 +20,10 @@ app.on("ready", () => {
 ipcMain.handle("get-cash-flow", () => {
   return getCashFlow();
 });
+
+ipcMain.handle(
+  "add-edition-cash-flow",
+  (_event, amount: number, reason: string) => {
+    return addEditionCashFlow(amount, reason);
+  }
+);
