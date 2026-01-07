@@ -5,7 +5,7 @@ export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const handleAmountChange = (e) => {
+  function handleAmountChange(e) {
     const v = e.target.value;
 
     if (v === "") {
@@ -16,15 +16,15 @@ export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
     if (/^\d*\.?\d*$/.test(v)) {
       setAmount(v);
     }
-  };
+  }
 
-  const closeModal = () => {
+  function closeModal() {
     setShowEditCash(false);
     setAmount("");
     setDescription("");
-  };
+  }
 
-  const editCash = async (event, cashEditionType: "add" | "remove") => {
+  async function editCash(event) {
     event.preventDefault();
     const numberAmount = Number(amount);
     const finalAmount =
@@ -36,14 +36,11 @@ export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
     } catch (err) {
       console.error("Falha ao editar caixa", err);
     }
-  };
+  }
 
   return (
     <div className="modal-wrapper">
-      <form
-        onSubmit={(e) => editCash(e, cashEditionType)}
-        className="edit-cash-modal"
-      >
+      <form onSubmit={(e) => editCash(e)} className="edit-cash-modal">
         <h2>{cashEditionType === "add" ? "Depositar" : "Retirar"} valor</h2>
 
         <input

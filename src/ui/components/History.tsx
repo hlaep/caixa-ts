@@ -1,9 +1,17 @@
 import { useRef } from "react";
 import calendar from "../assets/calendar.png";
+import type { CashFlow } from "../App";
+import OperationCard from "./OperationCard";
 
-export default function History() {
+interface HistoryProps {
+  cashFlowHistory: CashFlow[];
+}
+
+export default function History({ cashFlowHistory = [] }: HistoryProps) {
   const dateInputRef = useRef(null);
+
   const openCalendar = () => dateInputRef.current.showPicker();
+
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
     console.log(selectedDate);
@@ -23,6 +31,16 @@ export default function History() {
           style={{ position: "absolute", opacity: 0, pointerEvents: "none" }}
         />
       </header>
+      <div>
+        {cashFlowHistory.map((operation) => (
+          <OperationCard
+            key={operation.id}
+            amount={operation.amount}
+            reason={operation.reason}
+            createdAt={operation.createdAt}
+          />
+        ))}
+      </div>
     </div>
   );
 }

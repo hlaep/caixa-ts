@@ -22,7 +22,7 @@ export default function Cashier({
 
   return (
     <div className="cashier">
-      <div className="info">
+      <div className="cashier-amount">
         <h2>Valor em caixa:</h2>
         <p>{formatBRL(cash)}</p>
       </div>
