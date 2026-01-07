@@ -6,12 +6,13 @@ export default function Cashier({
   setCashEditionType,
   setShowAddSale,
 }) {
-  const [cash, setCash] = useState(0);
+  const [cash, setCash] = useState<number>(0);
 
   const showModal = (modalType) => {
     if (modalType === "add" || modalType === "remove") {
       setCashEditionType(modalType);
       setShowEditCash(true);
+      setCash(0);
     } else if (modalType === "sale") {
       setShowAddSale(true);
     } else {

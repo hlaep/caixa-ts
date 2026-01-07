@@ -2,8 +2,8 @@ import { useState } from "react";
 import "../styles/EditAmountModal.css";
 
 export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
-  const [amount, setAmount] = useState("");
-  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   const handleAmountChange = (e) => {
     const v = e.target.value;
@@ -24,11 +24,20 @@ export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
     setDescription("");
   };
 
-  const editCash = (event, cashEditionType) => {
+  const editCash = async (event, cashEditionType: "add" | "remove") => {
     event.preventDefault();
-    console.log("mock", cashEditionType, amount, new Date(), description);
-    closeModal();
+    const numberAmount = Number(amount);
+    const finalAmount =
+      cashEditionType === "add" ? numberAmount : -numberAmount;
+
+    try {
+      await window.electron.addEditionCashFlow(finalAmount, description);
+      closeModal();
+    } catch (err) {
+      console.error("Falha ao editar caixa", err);
+    }
   };
+
   return (
     <div className="modal-wrapper">
       <form

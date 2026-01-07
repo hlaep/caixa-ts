@@ -11,10 +11,6 @@ export default function App() {
   const [cashEditionType, setCashEditionType] = useState<string>("");
 
   useEffect(() => {
-    //@ts-ignore
-    window.electron.addEditionCashFlow(22.5, "testes e testes");
-
-    //@ts-ignore just testing if preload and ipc are responding
     window.electron.getCashFlow().then((data) => {
       console.log(data);
     });
