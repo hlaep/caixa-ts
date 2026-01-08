@@ -3,6 +3,7 @@ import path from "path";
 import { isDev } from "./util.js";
 import { getPreloadPath } from "./pathResolver.js";
 import { getCashFlow, addEditionCashFlow } from "./database/cashFlowManager.js";
+import type { CashFlowOrder } from "./database/cashFlowManager.js";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -17,8 +18,14 @@ app.on("ready", () => {
   }
 });
 
-ipcMain.handle("get-cash-flow", () => {
-  return getCashFlow();
+ipcMain.handle("get-cash-flow", (_event, order: CashFlowOrder) => {
+  const response = getCashFlow(order);
+
+  response.forEach((obj) => {
+    obj.createdAt = new Date(obj.createdAt);
+  });
+
+  return response;
 });
 
 ipcMain.handle(

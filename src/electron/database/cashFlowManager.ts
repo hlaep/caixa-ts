@@ -7,15 +7,15 @@ interface CashFlow {
   createdAt: string | Date;
 }
 
-export function getCashFlow(): CashFlow[] {
-  const sql = "SELECT * FROM cashFlow";
+export type CashFlowOrder = "newestToOldest" | "oldestToNewest";
+
+export function getCashFlow(order: CashFlowOrder): CashFlow[] {
+  const sql =
+    order === "newestToOldest"
+      ? "SELECT * FROM cashFlow ORDER BY createdAt DESC"
+      : "SELECT * FROM cashFlow ORDER BY createdAt ASC";
   const statement = db.prepare(sql);
   const response = statement.all() as CashFlow[];
-
-  response.forEach((obj) => {
-    obj.createdAt = new Date(obj.createdAt);
-  });
-
   return response;
 }
 
