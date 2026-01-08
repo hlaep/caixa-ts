@@ -1,9 +1,9 @@
-import { formatBRL } from "../utilities";
+import { formatBRL, formatDateHourMinute } from "../utilities";
 
 interface OperationCardProps {
   amount: number;
   reason: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export default function OperationCard({
@@ -21,10 +21,9 @@ export default function OperationCard({
             {formatBRL(amount)}
           </p>
         </div>
-        <div className="vertical-divider" />
-        <div className="info">
-          <label>Data:</label>
-          <p>{createdAt}</p>
+
+        <div className="time">
+          <p>{formatDateHourMinute(createdAt)}</p>
         </div>
       </div>
 

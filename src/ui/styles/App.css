@@ -14,6 +14,7 @@ button {
   cursor: pointer;
   border-radius: 4px;
   padding: 0.5rem 1rem;
+  background: rgb(231, 231, 231);
 }
 
 button:hover {
@@ -24,10 +25,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.vertical-divider {
-  background-color: rgb(178, 185, 185);
-  width: 2px;
-  border-radius: 6px;
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .buttons-container {
@@ -44,43 +44,55 @@ body {
   background-color: #c75858;
 }
 
-.cashier {
+.vertical-divider {
+  background: black;
+  width: 2px;
+  border-radius: 6px;
+}
+
+header {
   padding: 2rem;
   background: #abb1b1;
 }
 
-.cashier-amount {
+/* ===== DATE DISPLAY ===== */
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* ===== CASHIER ===== */
+
+.cashier .amount {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.cashier-amount p {
+.cashier .amount p {
   font-size: 1.4rem;
 }
 
 /* ===== HISTORY ===== */
-
-.history img {
-  height: 1.5rem;
-  width: 1.5rem;
+.history {
+  padding: 16px;
 }
 
-.history header {
-  display: flex;
-  padding: 1rem;
-  gap: 1rem;
-  align-items: center;
+.history h2 {
+  margin-bottom: 1rem;
 }
+
 /* ===== OPERATION CARD ===== */
 .operation-card {
   background-color: #e7eeee;
   border-radius: 6px;
   margin-bottom: 16px;
-  margin-inline: 16px;
   padding: 16px;
-  max-width: 550px;
+  width: 560px;
   color: #3a3d3d;
+  position: relative;
 }
 
 .operation-card .negative-amount {
@@ -104,10 +116,21 @@ body {
 }
 
 .operation-card .info.description {
-  align-items: start;
+  align-items: center;
 }
 
 .operation-card .info label {
   font-size: 1.2rem;
   font-weight: 500;
+}
+
+.operation-card .info.description p {
+  overflow-wrap: break-word;
+  max-width: 420px;
+}
+
+.operation-card .time {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }

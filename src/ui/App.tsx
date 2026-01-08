@@ -4,12 +4,13 @@ import EditAmountModal from "./components/EditAmountModal";
 import "./styles/App.css";
 import AddSaleModal from "./components/AddSaleModal";
 import History from "./components/History";
+import DateDisplay from "./components/DateDisplay";
 
 export interface CashFlow {
   id: number;
   amount: number;
   reason: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export default function App() {
@@ -33,11 +34,14 @@ export default function App() {
 
   return (
     <>
-      <Cashier
-        setShowEditCash={setShowEditCash}
-        setCashEditionType={setCashEditionType}
-        setShowAddSale={setShowAddSale}
-      />
+      <header>
+        <DateDisplay />
+        <Cashier
+          setShowEditCash={setShowEditCash}
+          setCashEditionType={setCashEditionType}
+          setShowAddSale={setShowAddSale}
+        />
+      </header>
       {showEditCash && (
         <EditAmountModal
           setShowEditCash={setShowEditCash}
