@@ -14,7 +14,7 @@ button {
   cursor: pointer;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  background: rgb(231, 231, 231);
+  background: #e7e7e7;
 }
 
 button:hover {
@@ -54,6 +54,27 @@ header {
   padding: 2rem;
   background: #abb1b1;
 }
+/* =====  ERROR MESSAGE ===== */
+.error-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 14px 20px;
+  text-align: center;
+  font-weight: 500;
+  z-index: 1000;
+}
+
+.error-banner.show {
+  transform: translateY(0);
+}
 
 /* ===== DATE DISPLAY ===== */
 .date-display {
@@ -73,64 +94,4 @@ header {
 
 .cashier .amount p {
   font-size: 1.4rem;
-}
-
-/* ===== HISTORY ===== */
-.history {
-  padding: 16px;
-}
-
-.history h2 {
-  margin-bottom: 1rem;
-}
-
-/* ===== OPERATION CARD ===== */
-.operation-card {
-  background-color: #e7eeee;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  padding: 16px;
-  width: 560px;
-  color: #3a3d3d;
-  position: relative;
-}
-
-.operation-card .negative-amount {
-  color: rgb(255, 67, 67);
-}
-
-.operation-card .positive-amount {
-  color: rgb(0, 136, 0);
-}
-
-.operation-card .short-info-container {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 1rem;
-}
-
-.operation-card .info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.operation-card .info.description {
-  align-items: center;
-}
-
-.operation-card .info label {
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.operation-card .info.description p {
-  overflow-wrap: break-word;
-  max-width: 420px;
-}
-
-.operation-card .time {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
 }

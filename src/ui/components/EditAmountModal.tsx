@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "../styles/EditAmountModal.css";
 
-export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
+export default function EditAmountModal({
+  setShowEditCash,
+  cashEditionType,
+  triggerCashRefresh,
+  triggerError,
+  cash,
+}) {
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -30,8 +36,15 @@ export default function EditAmountModal({ setShowEditCash, cashEditionType }) {
     const finalAmount =
       cashEditionType === "add" ? numberAmount : -numberAmount;
 
+    if (amount > cash && cashEditionType === "remove") {
+      triggerError(
+        "Não é possivel retirar um valor maior do que o disponível em caixa."
+      );
+      return;
+    }
     try {
       await window.electron.addEditionCashFlow(finalAmount, description);
+      triggerCashRefresh();
       closeModal();
     } catch (err) {
       console.error("Falha ao editar caixa", err);

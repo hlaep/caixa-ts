@@ -2,8 +2,11 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDev } from "./util.js";
 import { getPreloadPath } from "./pathResolver.js";
-import { getCashFlow, addEditionCashFlow } from "./database/cashFlowManager.js";
-import type { CashFlowOrder } from "./database/cashFlowManager.js";
+import {
+  getCashFlow,
+  addEditionCashFlow,
+  getTotalBalance,
+} from "./database/cashFlowManager.js";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -18,8 +21,8 @@ app.on("ready", () => {
   }
 });
 
-ipcMain.handle("get-cash-flow", (_event, order: CashFlowOrder) => {
-  const response = getCashFlow(order);
+ipcMain.handle("get-cash-flow", () => {
+  const response = getCashFlow();
 
   response.forEach((obj) => {
     obj.createdAt = new Date(obj.createdAt);
@@ -34,3 +37,7 @@ ipcMain.handle(
     return addEditionCashFlow(amount, reason);
   }
 );
+
+ipcMain.handle("get-total-balance", () => {
+  return getTotalBalance();
+});

@@ -1,0 +1,91 @@
+.history {
+  padding: 16px;
+}
+
+.history h2 {
+  margin-bottom: 1rem;
+}
+
+/* ===== OPERATION CARD ===== */
+.operation-card {
+  background-color: #e7eeee;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  padding: 16px;
+  width: 560px;
+  color: #3a3d3d;
+  position: relative;
+}
+
+.operation-card .negative-amount {
+  color: rgb(255, 67, 67);
+}
+
+.operation-card .positive-amount {
+  color: rgb(0, 136, 0);
+}
+
+.operation-card .info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.operation-card .info.description {
+  margin-top: 1rem;
+
+  align-items: center;
+}
+
+.operation-card .info label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.operation-card .info.description p {
+  overflow-wrap: break-word;
+  max-width: 420px;
+}
+
+.operation-card .time {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* ===== OPTIONS BUTTON ===== */
+
+.operation-card .options-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.operation-card .options-button .icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.operation-card .options-menu {
+  position: absolute;
+  top: -40px;
+  right: -85px;
+  display: flex;
+  flex-direction: column;
+}
+
+.operation-card .options-menu .divider {
+  height: 1px;
+  background-color: black;
+}
+
+.operation-card .options-menu :nth-child(1) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.operation-card .options-menu :nth-child(3) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

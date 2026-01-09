@@ -1,27 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { formatBRL } from "../utilities";
+import EditAmountModal from "./EditAmountModal";
 
 export default function Cashier({
-  setShowEditCash,
-  setCashEditionType,
   setShowAddSale,
+  cashRefreshKey,
+  triggerError,
+  triggerCashRefresh,
 }) {
   const [cash, setCash] = useState<number>(0);
+  const [showEditCash, setShowEditCash] = useState<boolean>(false);
+  const [cashEditionType, setCashEditionType] = useState<string>("");
+
+  async function getTotalBalance() {
+    try {
+      const response = await window.electron.getTotalBalance();
+      setCash(response);
+    } catch (error) {
+      triggerError("Erro ao carregar valor em caixa");
+      console.error("Erro ao carregar valor em caixa: ", error);
+    }
+  }
+
+  useEffect(() => {
+    getTotalBalance();
+  }, [cashRefreshKey]);
 
   const showModal = (modalType) => {
     if (modalType === "add" || modalType === "remove") {
       setCashEditionType(modalType);
       setShowEditCash(true);
-      setCash(0);
     } else if (modalType === "sale") {
       setShowAddSale(true);
     } else {
+      triggerError(
+        "Ocorreu um erro, reinicie a aplicação ou entre em contato com o desenvolvedor."
+      );
       throw new Error(`Invalid modal type: ${modalType}`);
     }
   };
 
   return (
     <div className="cashier">
+      {showEditCash && (
+        <EditAmountModal
+          setShowEditCash={setShowEditCash}
+          cashEditionType={cashEditionType}
+          triggerCashRefresh={triggerCashRefresh}
+          triggerError={triggerError}
+          cash={cash}
+        />
+      )}
       <div className="amount">
         <h2>Valor em caixa:</h2>
         <p>{formatBRL(cash)}</p>
