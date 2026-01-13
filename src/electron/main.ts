@@ -2,10 +2,11 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDev } from "./util.js";
 import { getPreloadPath } from "./pathResolver.js";
+import { getTotalBalance } from "./database/dbManager.js";
 import {
   getCashFlow,
   addEditionCashFlow,
-  getTotalBalance,
+  deleteItemCashFlow,
 } from "./database/cashFlowManager.js";
 
 app.on("ready", () => {
@@ -40,4 +41,8 @@ ipcMain.handle(
 
 ipcMain.handle("get-total-balance", () => {
   return getTotalBalance();
+});
+
+ipcMain.handle("delete-item-cash-flow", (_event, id: number) => {
+  return deleteItemCashFlow(id);
 });

@@ -3,7 +3,7 @@ import "../styles/EditAmountModal.css";
 
 export default function EditAmountModal({
   setShowEditCash,
-  cashEditionType,
+  activeModal,
   triggerCashRefresh,
   triggerError,
   cash,
@@ -33,10 +33,9 @@ export default function EditAmountModal({
   async function editCash(event) {
     event.preventDefault();
     const numberAmount = Number(amount);
-    const finalAmount =
-      cashEditionType === "add" ? numberAmount : -numberAmount;
+    const finalAmount = activeModal === "add" ? numberAmount : -numberAmount;
 
-    if (amount > cash && cashEditionType === "remove") {
+    if (amount > cash && activeModal === "remove") {
       triggerError(
         "Não é possivel retirar um valor maior do que o disponível em caixa."
       );
@@ -54,7 +53,7 @@ export default function EditAmountModal({
   return (
     <div className="modal-wrapper">
       <form onSubmit={(e) => editCash(e)} className="edit-cash-modal">
-        <h2>{cashEditionType === "add" ? "Depositar" : "Retirar"} valor</h2>
+        <h2>{activeModal === "add" ? "Depositar" : "Retirar"} valor</h2>
 
         <input
           placeholder="00,00"

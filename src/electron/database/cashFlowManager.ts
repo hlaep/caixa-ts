@@ -14,24 +14,16 @@ export function getCashFlow(): CashFlow[] {
   return response;
 }
 
-export function getTotalBalance(): number {
-  const sql = `
-    SELECT SUM(amount) AS total
-    FROM cashFlow
-  `;
-  const statement = db.prepare(sql);
-  const row = statement.get() as { total: number | null };
-
-  return row.total ?? 0;
-}
-
-export function getCashFlowAmounts() {}
-
 export function addEditionCashFlow(amount: number, reason: string) {
   const sql = `INSERT INTO cashFlow (amount, reason) VALUES (?, ?)`;
   const statement = db.prepare(sql);
 
-  const result = statement.run(amount, reason);
+  return statement.run(amount, reason);
+}
 
-  return { success: true, id: result.lastInsertRowid };
+export function deleteItemCashFlow(id: number) {
+  const sql = `DELETE FROM cashFlow WHERE id = ?`;
+  const statement = db.prepare(sql);
+
+  return statement.run(id);
 }

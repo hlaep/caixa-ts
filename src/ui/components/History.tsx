@@ -9,7 +9,11 @@ export interface CashFlow {
   createdAt: Date;
 }
 
-export default function History({ cashRefreshKey, triggerError }) {
+export default function History({
+  cashRefreshKey,
+  triggerError,
+  triggerCashRefresh,
+}) {
   const [cashFlow, setCashFlow] = useState<CashFlow[]>([]);
 
   async function getCashFlow() {
@@ -33,11 +37,17 @@ export default function History({ cashRefreshKey, triggerError }) {
         {cashFlow.map((operation) => (
           <OperationCard
             key={operation.id}
+            id={operation.id}
             amount={operation.amount}
             reason={operation.reason}
             createdAt={operation.createdAt}
+            triggerError={triggerError}
+            triggerCashRefresh={triggerCashRefresh}
           />
         ))}
+        {cashFlow.length < 1 && (
+          <p className="empty-list-message">(Nenhuma movimentação)</p>
+        )}
       </div>
     </div>
   );

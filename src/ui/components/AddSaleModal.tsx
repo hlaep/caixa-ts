@@ -1,12 +1,13 @@
 import { useState } from "react";
 
 export default function AddSaleModal({ setShowAddSale }) {
-  const [value, setValue] = useState("");
-  const [discount, setDiscount] = useState("");
   const [product, setProduct] = useState("");
-  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [quantity, setQuantity] = useState("1");
+  const [discount, setDiscount] = useState("");
+  const [customer, setCustomer] = useState("");
 
-  const handleNumberChange = (e, input) => {
+  function handleNumberChange(e, input) {
     const v = e.target.value;
 
     if (input === "value") {
@@ -28,48 +29,43 @@ export default function AddSaleModal({ setShowAddSale }) {
         setDiscount(v);
       }
     }
-  };
+  }
 
-  const addSale = (e) => {
+  function handleQuantityChange(e) {
+    const v = e.target.value;
+
+    if (v === "") {
+      setQuantity("");
+      return;
+    }
+
+    if (/^[1-9]\d*$/.test(v)) {
+      setQuantity(v);
+    }
+  }
+
+  async function addSale(e) {
     e.preventDefault();
-    console.log("mock", value, discount, product, description, new Date());
+    try {
+      // await window.electron
+    } catch (error) {
+      console.error("Falha ao adicionar venda: ", error);
+    }
     closeModal();
-  };
+  }
 
-  const closeModal = () => {
+  function closeModal() {
     setShowAddSale(false);
     setValue("");
     setDiscount("");
     setProduct("");
-    setDescription("");
-  };
+    setCustomer("");
+  }
 
   return (
     <div className="modal-wrapper">
       <form onSubmit={(e) => addSale(e)} className="edit-cash-modal">
         <h2>Adicionar venda</h2>
-        <p>valor</p>
-        <input
-          placeholder="00,00"
-          type="text"
-          value={value}
-          onChange={(e) => handleNumberChange(e, "value")}
-          inputMode="decimal"
-          min="0"
-          pattern="^\d*\.?\d*$"
-          autoFocus
-          required
-        />
-        <p>desconto (opcional)</p>
-        <input
-          placeholder="00,00"
-          type="text"
-          value={discount}
-          onChange={(e) => handleNumberChange(e, "discount")}
-          inputMode="decimal"
-          min="0"
-          pattern="^\d*\.?\d*$"
-        />
         <p>produto</p>
         <input
           placeholder="Nome do produto"
@@ -78,11 +74,43 @@ export default function AddSaleModal({ setShowAddSale }) {
           onChange={(e) => setProduct(e.target.value)}
           required
         />
+        <p>preço</p>
         <input
-          placeholder="Descrição (opcional)"
+          placeholder="00,00"
           type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={value}
+          onChange={(e) => handleNumberChange(e, "value")}
+          inputMode="decimal"
+          min="1"
+          pattern="^\d*\.?\d*$"
+          autoFocus
+          required
+        />
+        <p>quantidade</p>
+        <input
+          type="number"
+          value={quantity}
+          onChange={handleQuantityChange}
+          min="0"
+          step="1"
+          required
+        />
+        <p>desconto</p>
+        <input
+          placeholder="00,00 (opcional)"
+          type="text"
+          value={discount}
+          onChange={(e) => handleNumberChange(e, "discount")}
+          inputMode="decimal"
+          min="0"
+          pattern="^\d*\.?\d*$"
+        />
+        <p>Nome do cliente</p>
+        <input
+          placeholder="(opcional)"
+          type="text"
+          value={customer}
+          onChange={(e) => setCustomer(e.target.value)}
         />
 
         <div className="buttons-container">

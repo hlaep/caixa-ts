@@ -1,16 +1,22 @@
 import { formatBRL, formatDateHourMinute } from "../utilities";
-import CardOptionsButton from "./CardOptionsButton";
+import OpenOptionsButton from "./OpenOptionsButton";
 
 interface OperationCardProps {
+  id: number;
   amount: number;
   reason: string;
   createdAt: Date;
+  triggerError: (message: string) => void;
+  triggerCashRefresh: any;
 }
 
 export default function OperationCard({
+  id,
   amount,
   reason,
   createdAt,
+  triggerError,
+  triggerCashRefresh,
 }: OperationCardProps) {
   return (
     <div className="operation-card">
@@ -21,7 +27,12 @@ export default function OperationCard({
           {formatBRL(amount)}
         </p>
       </div>
-      <CardOptionsButton />
+
+      <OpenOptionsButton
+        id={id}
+        triggerError={triggerError}
+        triggerCashRefresh={triggerCashRefresh}
+      />
 
       <div className="info description">
         <label>Descrição:</label>

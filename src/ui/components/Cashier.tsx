@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { formatBRL } from "../utilities";
 import EditAmountModal from "./EditAmountModal";
+import AddSaleModal from "./AddSaleModal";
 
 export default function Cashier({
-  setShowAddSale,
   cashRefreshKey,
   triggerError,
   triggerCashRefresh,
 }) {
   const [cash, setCash] = useState<number>(0);
   const [showEditCash, setShowEditCash] = useState<boolean>(false);
-  const [cashEditionType, setCashEditionType] = useState<string>("");
+  const [activeModal, setActiveModal] = useState<string>("");
+  const [showAddSale, setShowAddSale] = useState<boolean>(false);
 
   async function getTotalBalance() {
     try {
@@ -28,7 +29,7 @@ export default function Cashier({
 
   const showModal = (modalType) => {
     if (modalType === "add" || modalType === "remove") {
-      setCashEditionType(modalType);
+      setActiveModal(modalType);
       setShowEditCash(true);
     } else if (modalType === "sale") {
       setShowAddSale(true);
@@ -45,12 +46,13 @@ export default function Cashier({
       {showEditCash && (
         <EditAmountModal
           setShowEditCash={setShowEditCash}
-          cashEditionType={cashEditionType}
+          activeModal={activeModal}
           triggerCashRefresh={triggerCashRefresh}
           triggerError={triggerError}
           cash={cash}
         />
       )}
+      {showAddSale && <AddSaleModal setShowAddSale={setShowAddSale} />}
       <div className="amount">
         <h2>Valor em caixa:</h2>
         <p>{formatBRL(cash)}</p>
