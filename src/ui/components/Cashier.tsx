@@ -52,7 +52,12 @@ export default function Cashier({
           cash={cash}
         />
       )}
-      {showAddSale && <AddSaleModal setShowAddSale={setShowAddSale} />}
+      {showAddSale && (
+        <AddSaleModal
+          setShowAddSale={setShowAddSale}
+          triggerError={triggerError}
+        />
+      )}
       <div className="amount">
         <h2>Valor em caixa:</h2>
         <p>{formatBRL(cash)}</p>

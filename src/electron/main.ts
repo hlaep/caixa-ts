@@ -8,6 +8,7 @@ import {
   addEditionCashFlow,
   deleteItemCashFlow,
 } from "./database/cashFlowManager.js";
+import { addSale, getSales } from "./database/salesManager.js";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -45,4 +46,21 @@ ipcMain.handle("get-total-balance", () => {
 
 ipcMain.handle("delete-item-cash-flow", (_event, id: number) => {
   return deleteItemCashFlow(id);
+});
+
+ipcMain.handle(
+  "add-sale",
+  (_event, product, unitPrice, quantity, discount, customer) => {
+    return addSale(product, unitPrice, quantity, discount, customer);
+  }
+);
+
+ipcMain.handle("get-sales", () => {
+  const response = getSales();
+
+  response.forEach((obj) => {
+    obj.createdAt = new Date(obj.createdAt);
+  });
+
+  return response;
 });

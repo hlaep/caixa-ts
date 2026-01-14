@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export default function AddSaleModal({ setShowAddSale }) {
+export default function AddSaleModal({ setShowAddSale, triggerError }) {
   const [product, setProduct] = useState("");
-  const [value, setValue] = useState("");
+  const [unitPrice, setValue] = useState("");
   const [quantity, setQuantity] = useState("1");
   const [discount, setDiscount] = useState("");
   const [customer, setCustomer] = useState("");
@@ -10,7 +10,7 @@ export default function AddSaleModal({ setShowAddSale }) {
   function handleNumberChange(e, input) {
     const v = e.target.value;
 
-    if (input === "value") {
+    if (input === "unitPrice") {
       if (v === "") {
         setValue("");
         return;
@@ -46,10 +46,22 @@ export default function AddSaleModal({ setShowAddSale }) {
 
   async function addSale(e) {
     e.preventDefault();
+    if (!product || !quantity || !unitPrice) {
+      triggerError("Um campo obrigatório não foi preenchido");
+      return;
+    }
+
     try {
-      // await window.electron
+      await window.electron.addSale(
+        product,
+        unitPrice,
+        quantity,
+        discount,
+        customer
+      );
     } catch (error) {
       console.error("Falha ao adicionar venda: ", error);
+      triggerError("Falha ao adicionar venda");
     }
     closeModal();
   }
@@ -78,8 +90,8 @@ export default function AddSaleModal({ setShowAddSale }) {
         <input
           placeholder="00,00"
           type="text"
-          value={value}
-          onChange={(e) => handleNumberChange(e, "value")}
+          value={unitPrice}
+          onChange={(e) => handleNumberChange(e, "unitPrice")}
           inputMode="decimal"
           min="1"
           pattern="^\d*\.?\d*$"
