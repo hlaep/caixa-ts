@@ -8,6 +8,6 @@
     "category": "Utility"
   },
   "win": {
-    "target": ["portable", "nsi"]
+    "target": ["portable", "msi"]
   }
 }
