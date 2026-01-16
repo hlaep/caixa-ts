@@ -5,8 +5,10 @@ import AddSaleModal from "./AddSaleModal";
 
 export default function Cashier({
   cashRefreshKey,
+  saleRefreshKey,
   triggerError,
   triggerCashRefresh,
+  triggerSaleRefresh,
 }) {
   const [cash, setCash] = useState<number>(0);
   const [showEditCash, setShowEditCash] = useState<boolean>(false);
@@ -25,7 +27,7 @@ export default function Cashier({
 
   useEffect(() => {
     getTotalBalance();
-  }, [cashRefreshKey]);
+  }, [cashRefreshKey, saleRefreshKey]);
 
   const showModal = (modalType) => {
     if (modalType === "add" || modalType === "remove") {
@@ -55,6 +57,7 @@ export default function Cashier({
       {showAddSale && (
         <AddSaleModal
           setShowAddSale={setShowAddSale}
+          triggerSaleRefresh={triggerSaleRefresh}
           triggerError={triggerError}
         />
       )}

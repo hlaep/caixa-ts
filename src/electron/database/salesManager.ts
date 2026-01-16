@@ -54,3 +54,10 @@ export function addSale(
     customer
   );
 }
+
+export function deleteItemSales(id: number) {
+  const sql = `DELETE FROM sales WHERE id = ?`;
+  const statement = db.prepare(sql);
+
+  return statement.run(id);
+}

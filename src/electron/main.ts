@@ -8,7 +8,7 @@ import {
   addEditionCashFlow,
   deleteItemCashFlow,
 } from "./database/cashFlowManager.js";
-import { addSale, getSales } from "./database/salesManager.js";
+import { addSale, getSales, deleteItemSales } from "./database/salesManager.js";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -27,7 +27,7 @@ ipcMain.handle("get-cash-flow", () => {
   const response = getCashFlow();
 
   response.forEach((obj) => {
-    obj.createdAt = new Date(obj.createdAt);
+    obj.createdAt = new Date(obj.createdAt + "Z");
   });
 
   return response;
@@ -44,9 +44,16 @@ ipcMain.handle("get-total-balance", () => {
   return getTotalBalance();
 });
 
-ipcMain.handle("delete-item-cash-flow", (_event, id: number) => {
-  return deleteItemCashFlow(id);
-});
+ipcMain.handle(
+  "delete-item",
+  (_event, table: "cashFlow" | "sales", id: number) => {
+    if (table === "cashFlow") {
+      return deleteItemCashFlow(id);
+    } else {
+      return deleteItemSales(id);
+    }
+  }
+);
 
 ipcMain.handle(
   "add-sale",
@@ -59,7 +66,7 @@ ipcMain.handle("get-sales", () => {
   const response = getSales();
 
   response.forEach((obj) => {
-    obj.createdAt = new Date(obj.createdAt);
+    obj.createdAt = new Date(obj.createdAt + "Z");
   });
 
   return response;

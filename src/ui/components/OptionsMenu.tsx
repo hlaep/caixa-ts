@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 export default function OptionsMenu({
   close,
   id,
+  table,
   triggerError,
   triggerCashRefresh,
 }) {
@@ -10,11 +11,11 @@ export default function OptionsMenu({
 
   async function deleteOperation() {
     try {
-      await window.electron.deleteItemCashFlow(id);
+      await window.electron.deleteItem(table, id);
       triggerCashRefresh();
     } catch (error) {
       triggerError("Ocorreu um erro ao tentar excluir movimentação");
-      console.error("Erro ao deletar movimentação");
+      console.error("Erro ao deletar movimentação: ", error);
     }
   }
 

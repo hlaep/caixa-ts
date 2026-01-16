@@ -6,6 +6,7 @@ export default function OpenOptionsButton({
   id,
   triggerError,
   triggerCashRefresh,
+  table,
 }) {
   const [optionsVisible, setOptionsVisible] = useState<boolean>(false);
 
@@ -18,6 +19,7 @@ export default function OpenOptionsButton({
         <OptionsMenu
           close={() => setOptionsVisible(false)}
           id={id}
+          table={table}
           triggerError={triggerError}
           triggerCashRefresh={triggerCashRefresh}
         />

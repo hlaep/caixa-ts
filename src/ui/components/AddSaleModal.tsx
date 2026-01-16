@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-export default function AddSaleModal({ setShowAddSale, triggerError }) {
+export default function AddSaleModal({
+  setShowAddSale,
+  triggerError,
+  triggerSaleRefresh,
+}) {
   const [product, setProduct] = useState("");
   const [unitPrice, setValue] = useState("");
   const [quantity, setQuantity] = useState("1");
@@ -59,6 +63,7 @@ export default function AddSaleModal({ setShowAddSale, triggerError }) {
         discount,
         customer
       );
+      triggerSaleRefresh();
     } catch (error) {
       console.error("Falha ao adicionar venda: ", error);
       triggerError("Falha ao adicionar venda");

@@ -19,7 +19,7 @@ export default function OperationCard({
   triggerCashRefresh,
 }: OperationCardProps) {
   return (
-    <div className="operation-card">
+    <div className="operation-card card">
       <div className="info">
         <label>Movimentação:</label>
         <p className={amount < 0 ? "negative-amount" : "positive-amount"}>
@@ -30,6 +30,7 @@ export default function OperationCard({
 
       <OpenOptionsButton
         id={id}
+        table={"cashFlow"}
         triggerError={triggerError}
         triggerCashRefresh={triggerCashRefresh}
       />

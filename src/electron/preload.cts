@@ -5,8 +5,8 @@ contextBridge.exposeInMainWorld("electron", {
   addEditionCashFlow: (amount: number, reason: string) =>
     ipcRenderer.invoke("add-edition-cash-flow", amount, reason),
   getTotalBalance: () => ipcRenderer.invoke("get-total-balance"),
-  deleteItemCashFlow: (id: number) =>
-    ipcRenderer.invoke("delete-item-cash-flow", id),
+  deleteItem: (table: "cashFlow" | "sales", id: number) =>
+    ipcRenderer.invoke("delete-item", table, id),
   addSale: (
     product: string,
     unitPrice: number | string,
